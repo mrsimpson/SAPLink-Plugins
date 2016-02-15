@@ -1,3 +1,9 @@
+**********************************************************************
+* Common implementation for locals in SAPLink and ABAGit-Plugin.
+* ZCL_ABAPGIT_OBJECT_BY_SOBJ and ZSAPLINK_GENERIC_OBJ
+* Patch both classes if bug corrected
+**********************************************************************
+
 CLASS lcl_rso_tlogo_xml_bridge IMPLEMENTATION.
 
   METHOD activate .

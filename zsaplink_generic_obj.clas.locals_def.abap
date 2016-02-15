@@ -1,3 +1,9 @@
+**********************************************************************
+* Common implementation for locals in SAPLink and ABAGit-Plugin.
+* ZCL_ABAPGIT_OBJECT_BY_SOBJ and ZSAPLINK_GENERIC_OBJ
+* Patch both classes if bug corrected
+**********************************************************************
+
 CLASS lcl_rso_tlogo_xml_bridge DEFINITION
   CREATE PUBLIC .
 
@@ -28,8 +34,8 @@ CLASS lcl_rso_tlogo_xml_bridge DEFINITION
         !e_string_xml TYPE string .
     METHODS constructor
       IMPORTING
-        !i_tlogo TYPE rstlogo
-        iv_include_last_changed type abap_bool optional
+        !i_tlogo                TYPE rstlogo
+        iv_include_last_changed TYPE abap_bool OPTIONAL
       EXCEPTIONS
         tlogo_doesnt_exist .
     METHODS parse_xml
@@ -94,23 +100,24 @@ CLASS lcl_rso_tlogo_xml_bridge DEFINITION
     DATA p_ts_objsl TYPE pt_ts_objsl .
     DATA p_ts_tlogo_tables TYPE pt_ts_tlogo_tables .
     DATA p_timestmp TYPE rstimestmp .
-    data mv_include_last_changed type abap_bool.
+    DATA mv_include_last_changed TYPE abap_bool.
 
     METHODS read_tlogo_prop .
 
     METHODS do_delete
       IMPORTING
         iv_tlogo_table  TYPE lcl_rso_tlogo_xml_bridge=>pt_s_tlogo_tables-tabname
-        iv_where_clause type lcl_rso_tlogo_xml_bridge=>pt_s_tlogo_tables-where_clause.
+        iv_where_clause TYPE lcl_rso_tlogo_xml_bridge=>pt_s_tlogo_tables-where_clause.
 
     METHODS do_insert
       IMPORTING
-        iv_tlogo_table  TYPE lcl_rso_tlogo_xml_bridge=>pt_s_tlogo_tables-tabname
-        it_data         TYPE STANDARD TABLE.
+        iv_tlogo_table TYPE lcl_rso_tlogo_xml_bridge=>pt_s_tlogo_tables-tabname
+        it_data        TYPE STANDARD TABLE.
 ENDCLASS.
 
 CLASS lcl_tlogo_xml_bridge DEFINITION INHERITING FROM lcl_rso_tlogo_xml_bridge
   CREATE PUBLIC.
+* This class adds features to the rso_tlogo_bridge without changing too much code in there
   PUBLIC SECTION.
     TYPES: BEGIN OF ty_obj_metadata,
              db_table          TYPE tabname,
@@ -146,8 +153,8 @@ CLASS lcl_tlogo_xml_bridge DEFINITION INHERITING FROM lcl_rso_tlogo_xml_bridge
 
     METHODS validate_count_prim_table
       IMPORTING
-        iv_objname              TYPE objname
-        iv_dbcount              LIKE sy-dbcnt.
+        iv_objname TYPE objname
+        iv_dbcount LIKE sy-dbcnt.
   PRIVATE SECTION.
 
     METHODS timestamp_to_xml
@@ -156,5 +163,5 @@ CLASS lcl_tlogo_xml_bridge DEFINITION INHERITING FROM lcl_rso_tlogo_xml_bridge
 
     METHODS get_prim_table_objsl
       RETURNING
-        VALUE(rs_objsl) LIKE line of p_ts_objsl.
+        VALUE(rs_objsl) LIKE LINE OF p_ts_objsl.
 ENDCLASS.
