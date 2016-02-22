@@ -10,6 +10,7 @@ CLASS zcl_abapgit_saplink_adapter DEFINITION
     METHODS constructor
       IMPORTING
         !iv_saplink_classname TYPE classname
+        !iv_obj_type            type tadir-object
         !iv_obj_name          TYPE tadir-obj_name.
 
 
@@ -25,7 +26,8 @@ CLASS ZCL_ABAPGIT_SAPLINK_ADAPTER IMPLEMENTATION.
 
   METHOD constructor.
 
-    super->constructor( iv_obj_name = iv_obj_name ).
+    super->constructor( iv_obj_type   = iv_obj_type
+                        iv_obj_name = iv_obj_name ).
 
     mv_saplink_classname = iv_saplink_classname.
 
