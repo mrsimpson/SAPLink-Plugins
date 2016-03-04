@@ -13,6 +13,7 @@ CLASS zcl_abapgit_saplink_adapter DEFINITION
         !iv_obj_type            type tadir-object
         !iv_obj_name          TYPE tadir-obj_name.
 
+    methods get_supported_obj_types REDEFINITION.
 
   PRIVATE SECTION.
     DATA mo_saplink TYPE REF TO zsaplink.
@@ -26,8 +27,7 @@ CLASS ZCL_ABAPGIT_SAPLINK_ADAPTER IMPLEMENTATION.
 
   METHOD constructor.
 
-    super->constructor( iv_obj_type   = iv_obj_type
-                        iv_obj_name = iv_obj_name ).
+    super->constructor( ).
 
     mv_saplink_classname = iv_saplink_classname.
 
@@ -39,6 +39,13 @@ CLASS ZCL_ABAPGIT_SAPLINK_ADAPTER IMPLEMENTATION.
         "leave mo_saplink_wrapper initial => check this in future calls.
     ENDTRY.
 
+  ENDMETHOD.
+
+
+  METHOD get_supported_obj_types.
+*  data lv_obj_type like LINE OF rt_obj_type.
+*  lv_obj_type = mo_saplink->getobjecttype( ).
+*    insert  into table rt_obj_type.
   ENDMETHOD.
 
 
